@@ -1,4 +1,4 @@
-package com.example;
+package pl.bartosz_kyziol.serwis;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
