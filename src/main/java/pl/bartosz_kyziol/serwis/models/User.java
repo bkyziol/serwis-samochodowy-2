@@ -22,9 +22,12 @@ public class User {
 	private String password;
 
 	@NotNull
+	private String passwordConfirm;
+	
+	@NotNull
 	private String email;
 
-	@NotNull
+	@NotNull	
 	private String phone;
 
 	public User() { }
@@ -64,6 +67,14 @@ public class User {
 		this.password = password;
 	}
 
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -79,6 +90,7 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
 
 	@Override
 	public String toString() {
