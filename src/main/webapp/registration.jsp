@@ -21,10 +21,9 @@
 <meta name="description" content="Serwis samochodowy">
 <meta name="author" content="Bartosz Kyzioł">
 
-<title>Witaj</title>
+<title>Rejestracja</title>
 
-<link href="${contextPath}/css/bootstrap.min.css" rel="stylesheet">
-<link href="${contextPath}/css/common.css" rel="stylesheet">
+<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 
@@ -35,16 +34,15 @@
 		<div class="col-sm-4 col-sm-offset-4">
 			<h2 class="form-signin-heading text-center">Zarejestruj się</h2>
 
-			<form:form method="POST" modelAttribute="userForm"
+			<form:form method="POST" modelAttribute="userForm" action="${contextPath}/registration"
 				class="form-horizontal">
-
 
 				<spring:bind path="login">
 					<div class="form-group ${status.error ? 'has-error' : ''}">
 						<label for="inputLogin" class="col-sm-2 control-label">Login:</label>
 						<div class="col-sm-10">
 							<form:input type="text" path="login" class="form-control"
-								placeholder="Login" autofocus="true" id="inputLogin"></form:input>
+								placeholder="login" autofocus="true" id="inputLogin"></form:input>
 							<br />
 							<form:errors path="login"></form:errors>
 						</div>
@@ -56,7 +54,7 @@
 						<label for="inputPassword" class="col-sm-2 control-label">Hasło:</label>
 						<div class="col-sm-10">
 							<form:input type="password" path="password" class="form-control"
-								placeholder="Hasło" id="inputPassword"></form:input>
+								placeholder="hasło" id="inputPassword"></form:input>
 							<br />
 						</div>
 					</div>
@@ -67,7 +65,7 @@
 						<label for="inputConfirm" class="col-sm-2 control-label"></label>
 						<div class="col-sm-10">
 							<form:input type="password" path="passwordConfirm"
-								class="form-control" placeholder="Powtórz hasło"
+								class="form-control" placeholder="powtórz hasło"
 								id="inputConfirm"></form:input>
 							<br />
 							<form:errors path="password"></form:errors>
@@ -80,7 +78,7 @@
 						<label for="inputEmail" class="col-sm-2 control-label">Email:</label>
 						<div class="col-sm-10">
 							<form:input type="text" path="email" class="form-control"
-								placeholder="Adres e-mail" id="inputEmail"></form:input>
+								placeholder="adres e-mail" id="inputEmail"></form:input>
 							<br />
 							<form:errors path="email"></form:errors>
 						</div>
@@ -92,7 +90,7 @@
 						<label for="inputPhone" class="col-sm-2 control-label">Telefon:</label>
 						<div class="col-sm-10">
 							<form:input type="text" path="phone" class="form-control"
-								placeholder="Numer telefonu" id="inputPhone"></form:input>
+								placeholder="numer telefonu" id="inputPhone"></form:input>
 							<br />
 							<form:errors path="phone"></form:errors>
 						</div>
@@ -110,8 +108,8 @@
 		</div>
 	</div>
 
-	<script src="${contextPath}/js/jquery-3.2.0.min.js"></script>
-	<script src="${contextPath}/js/bootstrap.min.js"></script>
+	<script src="${contextPath}/resources/js/jquery-3.2.0.min.js"></script>
+	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 
 </body>
 </html>
