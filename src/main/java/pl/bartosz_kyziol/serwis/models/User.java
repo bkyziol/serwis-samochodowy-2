@@ -1,11 +1,8 @@
 package pl.bartosz_kyziol.serwis.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
 
 @Entity
 @Table(name = "users")
@@ -21,7 +18,7 @@ public class User {
 	@NotNull
 	private String password;
 
-	@NotNull
+	@Transient
 	private String passwordConfirm;
 	
 	@NotNull
@@ -29,7 +26,7 @@ public class User {
 
 	@NotNull	
 	private String phone;
-
+	
 	public User() { }
 
 	public User(long id) { 
@@ -70,7 +67,7 @@ public class User {
 	public String getPasswordConfirm() {
 		return passwordConfirm;
 	}
-
+	
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
 	}
