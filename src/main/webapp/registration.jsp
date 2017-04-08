@@ -34,7 +34,7 @@
 		<div class="col-sm-4 col-sm-offset-4">
 			<h2 class="form-signin-heading text-center">Zarejestruj się</h2>
 
-			<form:form method="POST" modelAttribute="userForm" action="${contextPath}/registration"
+			<form:form method="POST" modelAttribute="userForm" action="${contextPath}/rejestracja"
 				class="form-horizontal">
 
 				<spring:bind path="login">

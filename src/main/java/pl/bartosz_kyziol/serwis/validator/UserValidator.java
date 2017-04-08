@@ -7,13 +7,13 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import pl.bartosz_kyziol.serwis.models.User;
-import pl.bartosz_kyziol.serwis.repository.UserRepository;
+import pl.bartosz_kyziol.serwis.repository.UsersRepository;
 
 @Component
 public class UserValidator implements Validator {
     
 	@Autowired
-    private UserRepository userRepository;
+    private UsersRepository userRepository;
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -49,9 +49,7 @@ public class UserValidator implements Validator {
         if (user.getPhone().length() > 50) {
             errors.rejectValue("phone", "phone.toLong");
         }
-        
-        
-		
+        		
 	}
 
 }
