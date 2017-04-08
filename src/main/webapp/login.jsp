@@ -33,7 +33,7 @@
 
 		<div class="col-sm-4 col-sm-offset-4">
 			<h2 class="form-signin-heading text-center">Zaloguj się</h2>
-			<form method="POST" action="${contextPath}/login"
+			<form method="POST" action="${contextPath}/logowanie"
 				class="form-horizontal">
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" /> <span>${message}</span>
@@ -58,7 +58,7 @@
 						<button class="btn btn-primary btn-lg" type="submit">Zaloguj się</button>
 					</div>
 					<div class="text-center">
-						<a href="${contextPath}/registration">Utwórz konto</a>
+						<a href="${contextPath}/rejestracja">Utwórz konto</a>
 					</div>
 				</div>
 

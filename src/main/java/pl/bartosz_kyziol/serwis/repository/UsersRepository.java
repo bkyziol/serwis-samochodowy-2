@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import pl.bartosz_kyziol.serwis.models.User;
 
 @Transactional
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UsersRepository extends CrudRepository<User, Long> {
 
   public User findByLogin(String login);
 
