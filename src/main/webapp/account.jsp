@@ -13,13 +13,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Serwis samochodowy</title>
-</head>
-<head>
+<meta http-equiv="Content-Type" content="text/html">
 
 <meta name="description" content="Serwis samochodowy">
 <meta name="author" content="Bartosz Kyzioł">
+<meta name="csrf" content="${_csrf.token}"/>
 
 <title>Twoje konto</title>
 
@@ -33,22 +31,18 @@
 
 
 	<div class="content">
-		<div class="col-sm-6 col-sm-offset-3">
+		<div class="col-md-4 col-md-offset-4">
 
 			<h3>Witaj ${user.login}!</h3>
 
 			<h4>Twoje pojazdy:</h4>
 			<div id="cars"></div>
 			
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-
 			<div class="form-horizontal">
-				<input type="hidden" id="csrf" value="${_csrf.token}" />
 
 				<div class="form-group">
 					<label for="inputBrand" class="col-sm-2 control-label">Marka:</label>
-					<div class="col-sm-10">
+					<div class="col-sm-9">
 						<input id="brand" type="text" class="form-control"
 							placeholder="marka" autofocus="true" id="inputBrand" />
 					</div>
@@ -56,7 +50,7 @@
 
 				<div class="form-group">
 					<label for="inputModel" class="col-sm-2 control-label">Model:</label>
-					<div class="col-sm-10">
+					<div class="col-sm-9">
 						<input id="model" type="text" class="form-control"
 							placeholder="model" autofocus="true" id="inputModel" />
 					</div>
@@ -64,7 +58,7 @@
 
 				<div class="form-group">
 					<label for="inputRegNr" class="col-sm-2 control-label">Nr&nbsprej.:</label>
-					<div class="col-sm-10">
+					<div class="col-sm-9">
 						<input id="registration_nr" type="text" class="form-control"
 							placeholder="numer rejestracyjny" autofocus="true"
 							id="inputRegNr" />
