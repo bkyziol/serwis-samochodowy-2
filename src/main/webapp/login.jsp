@@ -30,10 +30,10 @@
 
 		<div class="col-sm-4 col-sm-offset-4">
 			<h2 class="form-signin-heading text-center">Zaloguj się</h2>
-			<form method="POST" action="${contextPath}/logowanie"
-				class="form-horizontal">
+			<form method="POST" action="${contextPath}/logowanie" class="form-horizontal">
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" /> <span>${message}</span>
+
 				<div class="form-group ${status.error ? 'has-error' : ''}">
 					<label for="inputLogin" class="col-sm-2 control-label">Login:</label>
 					<div class="col-sm-10">
@@ -50,15 +50,12 @@
 					</div>
 				</div>
 
-				<div class="form-group">
-					<div class="text-center">
-						<button class="btn btn-primary btn-lg" type="submit">Zaloguj się</button>
-					</div>
-					<div class="text-center">
-						<a href="${contextPath}/rejestracja">Utwórz konto</a>
-					</div>
+				<div class="form-group text-center">
+					<button class="btn btn-primary btn-lg" type="submit">Zaloguj się</button>
 				</div>
-
+				<div class="form-group text-center">
+					<a href="${contextPath}/rejestracja">Utwórz konto</a>
+				</div>
 			</form>
 		</div>
 	</div>
