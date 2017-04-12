@@ -14,10 +14,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword())); //TODO
         usersRepository.save(user);
     }
-
+    
+    @Override
+    public User findById(long id) {
+        return usersRepository.findById(id);
+    }
+    
     @Override
     public User findByUsername(String login) {
         return usersRepository.findByLogin(login);

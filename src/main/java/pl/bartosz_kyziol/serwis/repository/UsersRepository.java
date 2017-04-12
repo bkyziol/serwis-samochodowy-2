@@ -9,8 +9,10 @@ import pl.bartosz_kyziol.serwis.models.User;
 @Transactional
 public interface UsersRepository extends CrudRepository<User, Long> {
 
-  public User findByLogin(String login);
+	public User findById(long id);
+	
+	public User findByLogin(String login);
 
-  public User findByEmail(String email);
+	public User findByEmail(String email);
   
 }

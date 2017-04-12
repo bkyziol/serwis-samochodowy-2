@@ -8,38 +8,15 @@ import javax.validation.constraints.NotNull;
 @Table(name = "users")
 public class User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-
-	@NotNull
 	private String login;
-
-	@NotNull
 	private String password;
-
-	@Transient
 	private String passwordConfirm;
-	
-	@NotNull
 	private String email;
-
-	@NotNull	
 	private String phone;
 	
-	public User() { }
-
-	public User(long id) { 
-		this.id = id;
-	}
-
-	public User(String login, String password, String email, String phone) {
-		this.login = login;
-		this.password = password;
-		this.email = email;
-		this.phone = phone;
-	}
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {
 		return id;
 	}
@@ -64,6 +41,7 @@ public class User {
 		this.password = password;
 	}
 
+	@Transient
 	public String getPasswordConfirm() {
 		return passwordConfirm;
 	}

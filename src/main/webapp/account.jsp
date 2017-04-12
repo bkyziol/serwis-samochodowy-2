@@ -30,10 +30,10 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-6 text-left">
+			<div class="col-xs-6 text-left">
 				<h3><span class="glyphicon glyphicon-user"></span> ${user.login}</h3>
 			</div>
-			<div class="col-md-6 text-right">
+			<div class="col-xs-6 text-right">
 				<a id="logout-button" href="/logout" class="btn btn-default">Wyloguj <span class="glyphicon glyphicon-off"></span></a>
 			</div>
 		</div>
@@ -44,13 +44,28 @@
 				<table>
 					<tr>
 						<td>Telefon:</td>
-						<td>${user.phone}</td>
-						<td><button class="btn btn-default btn-xs"><small><span class="glyphicon glyphicon-pencil"></span> Edytuj</button></small></td>
+						<td>
+							<span id="phone-output">${user.phone}</span>
+							<input id="phone-input" class="hidden"></input>
+						</td>
+						<td>
+							<button id="phone-button" class="btn btn-default btn-xs">
+							<small><span class="glyphicon glyphicon-pencil"></span> Edytuj</button></small>
+							<button id="phone-save" class="btn btn-default btn-xs hidden"><small>
+							<span class="glyphicon glyphicon-pencil"></span> Zapisz</button></small>						
+						</td>
 					</tr>
 					<tr>
 						<td>Adres e-mail:</td>
-						<td>${user.email}</td>
-						<td><button class="btn btn-default btn-xs"><small><span class="glyphicon glyphicon-pencil"></span> Edytuj</button></small></td>
+						<td>
+							<span id="email-output">${user.email}</span>
+							<input id="email-input" class="hidden"></input>
+						</td>
+							<td><button id="email-button" class="btn btn-default btn-xs">
+							<small><span class="glyphicon glyphicon-pencil"></span> Edytuj</button></small>
+							<button id="email-save" class="btn btn-default btn-xs hidden"><small>
+							<span class="glyphicon glyphicon-pencil"></span> Zapisz</button></small>						
+						</td>
 					</tr>
 				</table>
 				<br/>
