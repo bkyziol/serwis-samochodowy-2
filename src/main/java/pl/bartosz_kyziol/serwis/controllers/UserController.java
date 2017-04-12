@@ -3,6 +3,7 @@ package pl.bartosz_kyziol.serwis.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,20 +37,17 @@ public class UserController {
 
 		if (bindingResult.hasErrors()) {
 			return "registration";
+		} else {
+	        userForm.setPassword(new BCryptPasswordEncoder().encode(userForm.getPassword())); //TODO
+			userService.save(userForm);
+			return "redirect:/terminarz";			
 		}
-
-		userService.save(userForm);
-		return "redirect:/terminarz";
 	}
 	
     @RequestMapping(value = "/logowanie", method = RequestMethod.GET)
-    public String login(Model model, String error, String logout) {
-//        if (error != null)
-//            model.addAttribute("error", "Login lub hasło jest niepoprawne.");
-//
-//        if (logout != null)
-//            model.addAttribute("message", "Zostałeś wylogowany.");
-
+    public String login(Model model, String error) {
+        if (error != null)
+            model.addAttribute("error", "Login lub hasło jest niepoprawne.");
         return "login";
     }
     

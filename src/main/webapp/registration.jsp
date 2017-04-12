@@ -21,6 +21,7 @@
 <title>Rejestracja</title>
 
 <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="${contextPath}/resources/css/registration.css" rel="stylesheet">
 
 </head>
 
@@ -28,7 +29,7 @@
 
 	<div class="content">
 
-		<div class="col-sm-4 col-sm-offset-4">
+		<div id="registration-div" class="col-sm-4 col-sm-offset-4">
 			<h2 class="form-signin-heading text-center">Zarejestruj się</h2>
 
 			<form:form method="POST" modelAttribute="userForm" action="${contextPath}/rejestracja"

@@ -21,64 +21,112 @@
 
 <title>Twoje konto</title>
 
-<link href="${contextPath}/resources/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="${contextPath}/resources/css/account.css" rel="stylesheet">
 
 </head>
 
 <body>
 
-
-
-	<div class="content">
-		<div class="col-md-4 col-md-offset-4">
-
-			<h3>Witaj ${user.login}!</h3>
-
-			<h4>Twoje pojazdy:</h4>
-			<div id="cars"></div>
-			
-			<div class="form-horizontal">
-
-				<div class="form-group">
-					<label for="inputBrand" class="col-sm-2 control-label">Marka:</label>
-					<div class="col-sm-9">
-						<input id="brand" type="text" class="form-control"
-							placeholder="marka" autofocus="true" id="inputBrand" />
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="inputModel" class="col-sm-2 control-label">Model:</label>
-					<div class="col-sm-9">
-						<input id="model" type="text" class="form-control"
-							placeholder="model" autofocus="true" id="inputModel" />
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="inputRegNr" class="col-sm-2 control-label">Nr&nbsprej.:</label>
-					<div class="col-sm-9">
-						<input id="registration_nr" type="text" class="form-control"
-							placeholder="numer rejestracyjny" autofocus="true"
-							id="inputRegNr" />
-					</div>
-				</div>
-
-				<div class="form-group">
-					<div class="text-center">
-						<button id="add-car" class="btn btn-primary" type="submit">Dodaj
-							pojazd</button>
-					</div>
-				</div>
-
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-6 text-left">
+				<h3><span class="glyphicon glyphicon-user"></span> ${user.login}</h3>
 			</div>
-
-
+			<div class="col-xs-6 text-right">
+				<a id="logout-button" href="/logout" class="btn btn-default">Wyloguj <span class="glyphicon glyphicon-off"></span></a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-5">
+	
+				<p><b>DANE KONTAKTOWE:</b></p>
+				<table>
+					<tr>
+						<td>Telefon:</td>
+						<td>
+							<span id="phone-output">${user.phone}</span>
+							<input id="phone-input" class="hidden"></input>
+						</td>
+						<td>
+							<button id="phone-button" class="btn btn-default btn-xs">
+							<small><span class="glyphicon glyphicon-pencil"></span> Edytuj</button></small>
+							<button id="phone-save" class="btn btn-default btn-xs hidden"><small>
+							<span class="glyphicon glyphicon-pencil"></span> Zapisz</button></small>						
+						</td>
+					</tr>
+					<tr>
+						<td>Adres e-mail:</td>
+						<td>
+							<span id="email-output">${user.email}</span>
+							<input id="email-input" class="hidden"></input>
+						</td>
+							<td><button id="email-button" class="btn btn-default btn-xs">
+							<small><span class="glyphicon glyphicon-pencil"></span> Edytuj</button></small>
+							<button id="email-save" class="btn btn-default btn-xs hidden"><small>
+							<span class="glyphicon glyphicon-pencil"></span> Zapisz</button></small>						
+						</td>
+					</tr>
+				</table>
+				<br/>
+				<p><b>TWOJE POJAZDY:</b></p>
+				<div id="no-cars" class='car-div-alert'><span class="glyphicon glyphicon-exclamation-sign"></span>
+				Brak pojazdów w bazie.</div>
+				<div id="cars"></div>
+	
+				<div class="text-center">
+					<button id="open-add-car" class="btn btn-primary"><span class="glyphicon glyphicon-plus">
+					</span> Dodaj pojazd</button>
+				</div>
+				
+				<div id="add-car-form" class="form-horizontal hidden carDiv">
+	
+					<div class="form-group">
+						<label for="inputBrand" class="col-sm-2 control-label">Marka:</label>
+						<div class="col-sm-9">
+							<input id="brand" type="text" class="form-control"
+								placeholder="marka" autofocus="true" id="inputBrand" />
+						</div>
+					</div>
+	
+					<div class="form-group">
+						<label for="inputModel" class="col-sm-2 control-label">Model:</label>
+						<div class="col-sm-9">
+							<input id="model" type="text" class="form-control"
+								placeholder="model" autofocus="true" id="inputModel" />
+						</div>
+					</div>
+	
+					<div class="form-group">
+						<label for="inputRegNr" class="col-sm-2 control-label">Nr&nbsprej.:</label>
+						<div class="col-sm-9">
+							<input id="registration_nr" type="text" class="form-control"
+								placeholder="numer rejestracyjny" autofocus="true"
+								id="inputRegNr" />
+						</div>
+					</div>
+					<div class="text-center">
+						<p id="car-input-alert" class="hidden" >Proszę uzupełnić wszystkie pola.</p>
+					</div>
+					<div class="text-center col-sm-6">
+						<div class="form-group">
+							<button id="add-car" class="btn btn-primary" type="submit">
+							<span class="glyphicon glyphicon-floppy-disk"></span> Zapisz pojazd</button>
+						</div>
+					</div>
+					<div class="text-center col-sm-6">
+						<div class="form-group">
+							<button id="close-add-car" class="btn btn-primary" type="submit">
+							<span class="glyphicon glyphicon-remove"></span> Zamknij</button>
+						</div>				
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
 	<script src="${contextPath}/resources/js/jquery-3.2.0.min.js"></script>
+	<script src="${contextPath}/resources/js/jquery-ui.min.js"></script>
 	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 	<script src="${contextPath}/resources/js/account-scripts.js"></script>
 

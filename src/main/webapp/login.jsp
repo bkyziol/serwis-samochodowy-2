@@ -21,6 +21,7 @@
 <title>Logowanie</title>
 
 <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="${contextPath}/resources/css/login.css" rel="stylesheet">
 
 </head>
 
@@ -28,37 +29,40 @@
 
 	<div class="content">
 
-		<div class="col-sm-4 col-sm-offset-4">
-			<h2 class="form-signin-heading text-center">Zaloguj się</h2>
-			<form method="POST" action="${contextPath}/logowanie"
-				class="form-horizontal">
+		<div id="login-div" class="col-sm-4 col-sm-offset-4">
+			<h3 class="form-signin-heading text-center">Zaloguj się</h3>
+			<form method="POST" action="${contextPath}/logowanie" class="form-horizontal">
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" /> <span>${message}</span>
-				<div class="form-group ${status.error ? 'has-error' : ''}">
-					<label for="inputLogin" class="col-sm-2 control-label">Login:</label>
-					<div class="col-sm-10">
-						<input name="username" type="text" class="form-control"
-							placeholder="login" autofocus="true" id="inputLogin" />
-					</div>
-				</div>
 
-				<div class="form-group ${status.error ? 'has-error' : ''}">
-					<label for="inputPassword" class="col-sm-2 control-label">Hasło:</label>
-					<div class="col-sm-10">
-						<input name="password" type="password" class="form-control"
-							placeholder="hasło" id="inputPassword" />
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon " id="login-addon">
+							<span class="glyphicon glyphicon-user"></span>
+						</span> 
+						<input id="login-input" name="username" type="text" class="form-control" placeholder="login"
+							aria-describedby="login-addon" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<div class="text-center">
-						<button class="btn btn-primary btn-lg" type="submit">Zaloguj się</button>
-					</div>
-					<div class="text-center">
-						<a href="${contextPath}/rejestracja">Utwórz konto</a>
+					<div class="input-group">
+						<span class="input-group-addon" id="password-addon">
+							<span class="glyphicon glyphicon-lock"></span>
+						</span> 
+						<input id="password-input" name="password" type="password" class="form-control" placeholder="hasło"
+							aria-describedby="password-addon" />
 					</div>
 				</div>
+				
+				<p class="error-alert text-center">${error}</p>
 
+				<div class="form-group text-center">
+					<button class="btn btn-primary btn-l" type="submit">Zaloguj się</button>
+				</div>
+				<div class="form-group text-center">
+					<a href="${contextPath}/rejestracja">Utwórz konto</a>
+				</div>
 			</form>
 		</div>
 	</div>
