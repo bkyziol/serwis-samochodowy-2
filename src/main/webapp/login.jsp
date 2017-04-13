@@ -21,54 +21,58 @@
 <title>Logowanie</title>
 
 <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="${contextPath}/resources/css/main.css" rel="stylesheet"/>
 <link href="${contextPath}/resources/css/login.css" rel="stylesheet">
 
 </head>
 
 <body>
 
+  	<div class="background-image"></div>
 	<div class="content">
 		<div class="container-fluid">
 		
 			<div id="login-div" class="col-sm-4 col-sm-offset-4">
-				<h3 class="form-signin-heading text-center">Zaloguj się</h3>
-				<form method="POST" action="${contextPath}/logowanie" class="form-horizontal">
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" /> <span>${message}</span>
-	
-					<div class="form-group">
-						<div class="input-group">
-							<span class="input-group-addon " id="login-addon">
-								<span class="glyphicon glyphicon-user"></span>
-							</span> 
-							<input id="login-input" name="username" type="text" class="form-control" placeholder="login"
-								aria-describedby="login-addon" />
+				<a href="/" class="btn btn-default btn-sm pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+				<div class="col-lg-10 col-lg-offset-1">
+					<h3 class="form-signin-heading">Logowanie:</h3><br/>
+					<form method="POST" action="${contextPath}/logowanie" class="form-horizontal">
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" /> <span>${message}</span>
+		
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon " id="login-addon">
+									<span class="glyphicon glyphicon-user"></span>
+								</span> 
+								<input id="login-input" name="username" type="text" class="form-control" placeholder="login"
+									aria-describedby="login-addon" />
+							</div>
 						</div>
-					</div>
-	
-					<div class="form-group">
-						<div class="input-group">
-							<span class="input-group-addon" id="password-addon">
-								<span class="glyphicon glyphicon-lock"></span>
-							</span> 
-							<input id="password-input" name="password" type="password" class="form-control" placeholder="hasło"
-								aria-describedby="password-addon" />
+		
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon" id="password-addon">
+									<span class="glyphicon glyphicon-lock"></span>
+								</span> 
+								<input id="password-input" name="password" type="password" class="form-control" placeholder="hasło"
+									aria-describedby="password-addon" />
+							</div>
 						</div>
-					</div>
-					
-					<p class="error-alert text-center">${error}</p>
-	
-					<div class="form-group text-center">
-						<button class="btn btn-primary btn-l" type="submit">Zaloguj się</button>
-					</div>
-					<div class="form-group text-center">
-						<a href="${contextPath}/rejestracja">Utwórz konto</a>
-					</div>
-				</form>
+						
+						<p class="error-alert text-center">${error}</p>
+		
+						<div class="form-group text-center">
+							<br/><button class="btn btn-primary btn-lg" type="submit">Zaloguj się</button>
+						</div>
+						<div class="form-group text-center">
+							<a href="${contextPath}/rejestracja">Utwórz konto</a>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
-
 	<script src="${contextPath}/resources/js/jquery-3.2.0.min.js"></script>
 	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 

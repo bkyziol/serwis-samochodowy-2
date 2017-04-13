@@ -21,8 +21,8 @@
 
 <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="${contextPath}/resources/css/jquery-ui.css" rel="stylesheet">
-<link href="${contextPath}/resources/css/account.css" rel="stylesheet">
 <link href="${contextPath}/resources/css/main.css" rel="stylesheet">
+<link href="${contextPath}/resources/css/account.css" rel="stylesheet">
 
 </head>
 

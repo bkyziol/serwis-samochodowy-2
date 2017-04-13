@@ -23,7 +23,6 @@
 <link href="${contextPath}/resources//css/fontello.css" rel="stylesheet"/>
 <link href="${contextPath}/resources/css/jquery-ui.css" rel="stylesheet"/>
 <link href="${contextPath}/resources/css/main.css" rel="stylesheet"/>
-<link href="${contextPath}/resources/css/registration.css" rel="stylesheet">
 
 
 </head>
@@ -258,7 +257,7 @@
     <!--STOPKA-->
     <div class="navbar navbar-inverse navbar-fixed-bottom">
       <div class="container-fluid ">
-        <div class="author pull-right">Autor strony: <span class="author-signature">Bartosz Kyzioł</span></div>
+        <div class="author pull-right">Autor strony: <span class="author-signature">Bartosz Kyziol</span></div>
       </div>
     </div>
   </div>

@@ -120,8 +120,6 @@ $(function () {
   setTimeTablePosition();
   setSkillItemsHight();
 
-  $('.navbar').fadeTo(0, 0.4);
-
   setTimeout(function () {
     $('.timetable-item').animate({
       left: '0',
@@ -130,9 +128,11 @@ $(function () {
   }, 600);
 
   $('#divTimetable').on('click', function () {
+	  window.location.href = "/terminarz";
   });
 
   $('.timetable-small').on('click', function () {
+	  window.location.href = "/terminarz";
   });
 
   $('.btn-skills').on('click', function () {

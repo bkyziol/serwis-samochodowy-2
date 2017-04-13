@@ -442,6 +442,9 @@ label {
   background: #00aa00;
   cursor: default;
 }
+.error-alert {
+	color: red;
+}
 #dayPlan-table {
   margin-left: 7px;
   width: 100%;

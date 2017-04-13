@@ -21,83 +21,81 @@
 <title>Rejestracja</title>
 
 <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="${contextPath}/resources/css/main.css" rel="stylesheet"/>
 <link href="${contextPath}/resources/css/registration.css" rel="stylesheet">
 
 </head>
 
 <body>
 
+ 	<div class="background-image"></div>
 	<div class="content">
 
-		<div id="registration-div" class="col-sm-4 col-sm-offset-4">
-			<h2 class="form-signin-heading text-center">Zarejestruj się</h2>
+		<div id="registration-div" class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+			<a href="/terminarz" class="btn btn-default btn-sm pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+			<h2 class="form-signin-heading">Rejestracja:</h2><br />
 
 			<form:form method="POST" modelAttribute="userForm" action="${contextPath}/rejestracja"
 				class="form-horizontal">
 
 				<spring:bind path="login">
-					<div class="form-group ${status.error ? 'has-error' : ''}">
+					<div class="form-group ">
 						<label for="inputLogin" class="col-sm-2 control-label">Login:</label>
-						<div class="col-sm-10">
-							<form:input type="text" path="login" class="form-control"
+						<div class="col-sm-10 ${status.error ? 'has-error' : ''}">
+							<form:input type="text" path="login" class="form-control "
 								placeholder="login" autofocus="true" id="inputLogin"></form:input>
-							<br />
-							<form:errors path="login"></form:errors>
+							<form:errors class="error-alert" path="login"></form:errors>
 						</div>
 					</div>
 				</spring:bind>
 
 				<spring:bind path="password">
-					<div class="form-group ${status.error ? 'has-error' : ''}">
+					<div class="form-group ">
 						<label for="inputPassword" class="col-sm-2 control-label">Hasło:</label>
-						<div class="col-sm-10">
+						<div class="col-sm-10 ${status.error ? 'has-error' : ''}">
 							<form:input type="password" path="password" class="form-control"
 								placeholder="hasło" id="inputPassword"></form:input>
-							<br />
 						</div>
 					</div>
 				</spring:bind>
 
 				<spring:bind path="passwordConfirm">
-					<div class="form-group ${status.error ? 'has-error' : ''}">
+					<div class="form-group">
 						<label for="inputConfirm" class="col-sm-2 control-label"></label>
-						<div class="col-sm-10">
+						<div class="col-sm-10 ${status.error ? 'has-error' : ''}">
 							<form:input type="password" path="passwordConfirm"
 								class="form-control" placeholder="powtórz hasło"
 								id="inputConfirm"></form:input>
-							<br />
-							<form:errors path="password"></form:errors>
+							<form:errors class="error-alert" path="password"></form:errors>
 						</div>
 					</div>
 				</spring:bind>
 
 				<spring:bind path="email">
-					<div class="form-group ${status.error ? 'has-error' : ''}">
+					<div class="form-group">
 						<label for="inputEmail" class="col-sm-2 control-label">Email:</label>
-						<div class="col-sm-10">
+						<div class="col-sm-10 ${status.error ? 'has-error' : ''}">
 							<form:input type="text" path="email" class="form-control"
 								placeholder="adres e-mail" id="inputEmail"></form:input>
-							<br />
-							<form:errors path="email"></form:errors>
+							<form:errors class="error-alert" path="email"></form:errors>
 						</div>
 					</div>
 				</spring:bind>
 
 				<spring:bind path="phone">
-					<div class="form-group ${status.error ? 'has-error' : ''}">
+					<div class="form-group">
 						<label for="inputPhone" class="col-sm-2 control-label">Telefon:</label>
-						<div class="col-sm-10">
+						<div class="col-sm-10 ${status.error ? 'has-error' : ''}">
 							<form:input type="text" path="phone" class="form-control"
 								placeholder="numer telefonu" id="inputPhone"></form:input>
-							<br />
-							<form:errors path="phone"></form:errors>
+							<form:errors class="error-alert" path="phone"></form:errors>
 						</div>
 					</div>
 				</spring:bind>
 
 				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-						<button class="btn btn-primary" type="submit">Zatwierdź</button>
+					<div class="text-center">
+						<br/><button class="btn btn-primary btn-lg" type="submit">Zatwierdź</button>
 					</div>
 				</div>
 
