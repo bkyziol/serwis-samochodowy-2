@@ -1,6 +1,5 @@
 $(function () {
 
-	var $addCar = $('#add-car');
 	var $cars = $('#cars');
 	var $carInputAlert = $('#car-input-alert')
 	var $csrf = $('meta[name=csrf]');
@@ -8,10 +7,29 @@ $(function () {
 	var $model = $('#model');
 	var $regNr = $('#registration_nr');
 	var $noCars = $('#no-cars')
+	var $datepicker = $('#datepicker')
 	var numberOfCars =0;
+	var daysTable = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
+	var monthsTable = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
+	var selectedDate = new Date();
 
+
+	getVisitsByDay();
 	
-	$addCar.on('click',function(){
+	$.ajax({
+		type : 'GET',
+		url: '/api/cars',
+		success: function(cars) {
+			$.each(cars, function(i,car){
+				addCarToList(car);
+				getVisitsByCar(car);
+				numberOfCars += 1;
+			});
+			checkNumberOfCars();		
+		},
+	});
+	
+	$('#add-car').on('click',function(){
 		if ($brand.val().length > 0 && $model.val().length > 0 && $regNr.val().length > 0) {
 			$.ajax({
 				type: 'POST',
@@ -53,7 +71,8 @@ $(function () {
 			success: function() {
 				$parentDiv.remove();
 				numberOfCars -= 1;
-				checkNumberOfCars();		
+				checkNumberOfCars();
+				getVisitsByDay();
 			},
 			error: function(){
 				alert('Nie udało się usunąć pojazdu z bazy.');
@@ -140,28 +159,37 @@ $(function () {
 	
 
 	$cars.delegate('.add-visit','click', function() {	
-		var $carId = $(this).attr('data-id');
-		console.log()
-		$.ajax({
-			type: 'POST',
-			url: 'api/visits',
-			data:{
-				car: $carId,
-				_csrf: $csrf.attr('content')
-			},
-			success: function(newVisit) {
-				$('#visits-'+ newVisit.car.id).append(addVisitToList(newVisit));
-			},
-			error: function(){
-				alert('Nie udało się dodać wizyty do bazy.');
-			}
-		});	
+		var carId = $(this).attr('data-id');
+		var date = selectedDate.getFullYear() + '-' + selectedDate.getMonth() + '-' + selectedDate.getDate();
+		var time = $('.btn-dayPlan-selected').attr('date-time');
+		if (time != null){
+			console.log()
+			$.ajax({
+				type: 'POST',
+				url: 'api/visits',
+				data:{
+					date: date,
+					time: time,
+					car: carId,
+					_csrf: $csrf.attr('content')
+				},
+				success: function(newVisit) {
+					$('.btn-dayPlan-selected').removeClass('btn-dayPlan-selected');
+					$('#visits-'+ newVisit.car.id).append(addVisitToList(newVisit));
+					getVisitsByDay();
+				},
+				error: function(){
+					alert('Nie udało się dodać wizyty do bazy.');
+				}
+			});				
+		}else {
+			console.log('Nie wybrano godziny');
+		}
 	});
 
 	
 	$cars.delegate('.remove-visit','click', function() {	
 		var $closestDiv = $(this).closest('div');
-		console.log()
 		$.ajax({
 			type: 'DELETE',
 			url: 'api/visits/'+ $(this).attr('data-id'),
@@ -171,12 +199,67 @@ $(function () {
 		    },
 			success: function() {
 				$closestDiv.remove();
+				getVisitsByDay();
 			},
 			error: function(){
 				alert('Nie udało się usunąć wizyty z bazy.');
 			}
 		});	
 	});
+	
+
+	$.datepicker.regional['pl'] = {
+			closeText: 'Zamknij',
+			currentText: 'Dzisiaj',
+			monthNames: monthsTable, 
+			monthNamesShort: ['Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru'], 
+			dayNames: daysTable,
+			dayNamesShort: ['Nie', 'Pon', 'Wto', 'Śro', 'Czw', 'Pią', 'Sob'],
+			dayNamesMin: ['Ni', 'Po', 'Wt', 'Śr', 'Cz', 'Pi', 'So'],
+			dateFormat: 'dd/mm/yy',
+	};
+
+	$.datepicker.setDefaults($.datepicker.regional['pl']);
+
+	$datepicker.datepicker({
+		minDate: 0,
+		firstDay: 1,
+		onSelect: function () {
+			selectedDate = $(this).datepicker('getDate');
+			$('.btn-dayPlan-selected').removeClass('btn-dayPlan-selected');
+			$('.btn-dayPlan-reserved').removeClass('btn-dayPlan-reserved');
+			getVisitsByDay();
+			console.log(selectedDate);
+		},
+	});
+
+	$('.btn-dayPlan').on('click', function () {
+		console.log('test');
+		if ($(this).hasClass('btn-dayPlan-disabled') === false) {
+			$('.btn-dayPlan').removeClass('btn-dayPlan-selected');
+			$(this).addClass('btn-dayPlan-selected');
+		}
+	});
+
+	function getVisitsByDay() {
+		var request = '?day=' + selectedDate.getDate() + '&month=' + selectedDate.getMonth() + '&year=' + selectedDate.getFullYear();
+		$('#dayOfWeek').html(daysTable[selectedDate.getDay()]);
+		$.ajax({
+			type: 'GET',
+			url: 'api/visits' + request,
+			success: function (visits) {
+				$('.btn-dayPlan-disabled').html('Wolne');
+				$('.btn-dayPlan-disabled').removeClass('btn-dayPlan-disabled');
+				$.each(visits, function (i, visit) {
+					$('#btn-' + visit.time).addClass('btn-dayPlan-disabled');
+					$('#btn-' + visit.time).html('Zajęte');
+				});
+			},
+			error: function () {
+				alert('Brak połączenia z serwerem.');
+			},
+		});
+	}
 
 	
 	function checkNumberOfCars(){
@@ -187,26 +270,6 @@ $(function () {
 		}
 	}
 
-//---------------------------------------------------------------------------------------------------------------
-
-	
-	
-
-	
-	$.ajax({
-		type : 'GET',
-		url: '/api/cars',
-		success: function(cars) {
-			$.each(cars, function(i,car){
-				addCarToList(car);
-				getVisitsByCar(car);
-				numberOfCars += 1;
-			});
-			checkNumberOfCars();		
-		},
-	});
-	
-	
 		
 	function getVisitsByCar(car){
 		$.ajax({
@@ -225,19 +288,23 @@ $(function () {
 		
 
 	function addVisitToList(visit){
-		var visit = (
-				"<div class='visit-div'>Data: Godzina:" +
+		var time = visit.time.slice(0,2) + ":" + visit.time.slice(2);
+		var date = visit.date.split('-');
+		var dateString = date[2]+' '+monthsTable[date[1]] +' '+date[0];
+		
+		var visitHtml = (
+				"<div class='visit-div'>Data: " + dateString +  "<tab2em/> Godzina: " + time + 
 				"<button type='button' class='btn btn-xs btn-default pull-right remove-visit' data-id='"+ visit.id +"'>" +
 				"<span class='glyphicon glyphicon-remove' aria-hidden='true'></span> Odwołaj" +
 				"</button></div>"
 		); 
-		return visit;
+		return visitHtml;
 	}
 	
 	
 	function addCarToList(car){
 		$cars.append(
-				"<div><div class='car-div'>"+ car.brand +" "+ car.model +"<tab1/> nr rej.: "+ car.registration_nr +
+				"<div><div class='car-div'>"+ car.brand +" "+ car.model +"<tab4em/> nr rej.: "+ car.registration_nr +
 				"<button type='button' class='btn btn-default pull-right removeCar' data-id='"+ car.id +"'>" +
 				"<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>" +
 				"</button></div><div class='visits-list-div'>" +

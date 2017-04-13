@@ -1,12 +1,12 @@
 package pl.bartosz_kyziol.serwis.controllers;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,23 +34,36 @@ public class AccountController {
 
 	@RequestMapping(value = "/api/cars/{carId}/visits", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Visit> findMyVisitsByCar(@PathVariable long carId) {
-		Car car = carService.findById(carId);
-		if (car.getOwner()==getCurrentUserId()){
-			List<Visit> visits = visitService.findByCarId(carId);		
+	public List<Visit> findVisitsByCarId(@PathVariable long carId) {
+		
+		if (carService.findById(carId).getOwner() == getLoggedUserId()) {
+			List <Visit> visits = visitService.findByCarId(carId);
 			return visits;
 		} else {
 			return null;
 		}
 	}
 	
+	@RequestMapping(value = "/api/visits", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Visit> getVisitsByDay(@RequestParam int day, int month, int year) {
+		
+		String date = year+"-"+month+"-"+day;
+		List<Visit>visits = visitService.findByDate(date);
+		
+		return visits;
+	}
 	
 	@RequestMapping(value = "/api/visits", method = RequestMethod.POST)
 	@ResponseBody
 	public Visit postMyVisit(Visit visitForm) {
 
-		visitService.save(visitForm);
-		return visitForm;
+		if (visitForm.getCar().getOwner() == getLoggedUserId()) {
+			visitService.save(visitForm);
+			return visitForm;
+		} else {
+			return null;
+		}
 	}
 	
 	
@@ -59,8 +72,7 @@ public class AccountController {
 	public void deleteMyVisit(@PathVariable long id) {
 		
 		Visit visitToDelete = visitService.findById(id);
-		Car car = visitToDelete.getCar();
-		if (car.getOwner() == getCurrentUserId()) {
+		if (visitToDelete.getCar().getOwner() == getLoggedUserId()) {
 			visitService.delete(visitToDelete);			
 		}
 		
@@ -68,9 +80,9 @@ public class AccountController {
 	
 	@RequestMapping(value = "/api/cars", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Car> findMyCars(Model model) {
+	public List<Car> findMyCars() {
 	
-		List<Car> cars = carService.findByOwner(getCurrentUserId());		
+		List<Car> cars = carService.findByOwner(getLoggedUserId());		
 		
 		return cars;
 	}
@@ -80,7 +92,7 @@ public class AccountController {
 	@ResponseBody
 	public Car postMyCar(Car carForm) {
 
-		carForm.setOwner(getCurrentUserId());
+		carForm.setOwner(getLoggedUserId());
 		carService.save(carForm);
 
 		return carForm;
@@ -92,7 +104,12 @@ public class AccountController {
 	public void deleteMyCar(@PathVariable long id) {
 		
 		Car carToDelete = carService.findById(id);
-		if (carToDelete.getOwner() == getCurrentUserId()) {
+		if (carToDelete.getOwner() == getLoggedUserId()) {
+			List <Visit> visitsToDelete = visitService.findByCarId(id);
+			for (Visit visit : visitsToDelete) {
+				visitService.delete(visit);
+				
+			}
 			carService.delete(carToDelete);			
 		}
 		
@@ -105,7 +122,7 @@ public class AccountController {
 			@RequestParam(value="email", required=false) String email
 			){
 		
-		User user = userService.findById(getCurrentUserId());
+		User user = userService.findById(getLoggedUserId());
 
 		if (phone != null){
 			user.setPhone(phone);
@@ -119,11 +136,11 @@ public class AccountController {
 
 	}
 	
-	private long getCurrentUserId(){
+	private long getLoggedUserId(){
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User owner = userService.findByUsername(auth.getName());		
-		long id = owner.getId();
+		User loggedUser = userService.findByUsername(auth.getName());		
+		long id = loggedUser.getId();
 		
 		return id;
 	}
