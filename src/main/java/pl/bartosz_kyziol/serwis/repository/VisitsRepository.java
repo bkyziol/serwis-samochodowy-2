@@ -13,6 +13,8 @@ public interface VisitsRepository extends CrudRepository<Visit, Long> {
 
 	public Visit findById(long id);
 	
+	public List<Visit> findByDate(String date);
+	
 	public List<Visit> findByCarId(long carId);
 	
 }

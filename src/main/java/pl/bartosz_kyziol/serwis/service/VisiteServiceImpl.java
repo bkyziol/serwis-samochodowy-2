@@ -29,10 +29,14 @@ public class VisiteServiceImpl implements VisitService {
 		return visitsRepository.findById(id);
 	}
 	@Override
+	public List<Visit> findByDate(String date) {
+		return visitsRepository.findByDate(date);
+	}
+	
+	@Override
 	public List<Visit> findByCarId(long carId) {
 		List<Visit> visits = visitsRepository.findByCarId(carId);
 		return visits;
 	}
-
 
 }

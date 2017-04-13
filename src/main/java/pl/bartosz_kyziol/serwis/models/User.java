@@ -1,22 +1,22 @@
 package pl.bartosz_kyziol.serwis.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 
 @Entity
 @Table(name = "users")
 public class User {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String login;
 	private String password;
+	@Transient
 	private String passwordConfirm;
 	private String email;
 	private String phone;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {
 		return id;
 	}
@@ -41,7 +41,6 @@ public class User {
 		this.password = password;
 	}
 
-	@Transient
 	public String getPasswordConfirm() {
 		return passwordConfirm;
 	}

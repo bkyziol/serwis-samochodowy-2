@@ -12,6 +12,9 @@ public interface VisitService {
 	
 	public Visit findById(long id);
 	
+	public List<Visit> findByDate(String date);
+	
 	public List<Visit> findByCarId(long carId);
+	
 
 }
