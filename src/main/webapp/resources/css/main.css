@@ -34,14 +34,14 @@ body {
   outline: 0px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-.btn-terminarz {
+.btn-timetable {
   border-radius: 12px;
   font-size: 30px;
   padding: 15px 40px 15px 40px;
   margin-top: 10px;
   color: #0f0f0f;
 }
-.btn-uslugi {
+.btn-skills {
   position: absolute;
   border-radius: 4px;
   font-size: 18px;
@@ -55,7 +55,7 @@ body {
   font-size: 16px;
   padding: 5px 10px 5px 10px;
 }
-.btn-potwierdz {
+.btn-confirm {
   border-radius: 4px;
   font-size: 20px;
   padding: 6px 10px 6px 10px;
@@ -178,17 +178,8 @@ body {
   padding-top: 25px;
   padding-bottom: 10px;
   background-color: rgba(0, 0, 0, 0.8);
-  box-shadow: 0 0 20px 20px rgba(0, 0, 0, 0.8);
 }
-.item {
-  box-shadow: 0px 0px 10px 0px #9c0000;
-  color: #dcdcdc;
-  margin: 10px;
-  padding: 20px 10px 20px 10px;
-  background-color: rgba(0, 0, 0, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0);
-  border-radius: 8px;
-}
+
 .skills-item {
   box-shadow: 0px 0px 10px 0px #9c0000;
   color: #dcdcdc;
@@ -199,7 +190,6 @@ body {
   border-radius: 8px;
   padding-bottom: : 10px;
   min-height: 400px;
-  opacity: 0;
 }
 .contact-container {
   padding-top: 10px;
@@ -221,7 +211,7 @@ body {
   padding-bottom: 60px;
   background-color: rgba(0, 0, 0, 0.8);
 }
-.aboutUs-div {
+.aboutUs-item {
   box-shadow: 0px 0px 10px 0px #9c0000;
   color: #dcdcdc;
   margin: 10px;
@@ -285,6 +275,12 @@ body {
 }
 .frame {
   border-color: #9c0000;
+}
+.highlight {
+  box-shadow: 0px 0px 10px 0px #ff0000;
+}
+.removeHighlight {
+  box-shadow: 0px 0px 10px 0px #9c0000;
 }
 .opacity40percent {
   opacity: .4;

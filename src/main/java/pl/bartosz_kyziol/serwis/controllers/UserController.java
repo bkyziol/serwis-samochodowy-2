@@ -25,9 +25,9 @@ public class UserController {
 	@Autowired
 	private UserValidator userValidator;
 
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public String test() {
-		return "test";
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home() {
+		return "home";
 	}
 	
 	@RequestMapping(value = "/rejestracja", method = RequestMethod.GET)
