@@ -27,9 +27,10 @@
 </head>
 
 <body>
+	<div class="background-image"></div>
 	<div class="content">
 		<div class="container-fluid">
-			<div class="container">
+			<div id="account-div" class="container" >
 				<div class="row">
 					<div class="col-xs-6 text-left">
 						<h3><span class="glyphicon glyphicon-user"></span> ${user.login}</h3>
@@ -39,7 +40,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-5">
+					<div class="col-md-4">
 						<p><b>DANE KONTAKTOWE:</b></p>
 						<table id="contact-data">
 							<tr>
@@ -51,87 +52,34 @@
 								<td>
 									<button id="phone-button" class="btn btn-default btn-xs">
 									<small><span class="glyphicon glyphicon-pencil"></span> Edytuj</small></button>
-									<button id="phone-save" class="btn btn-default btn-xs hidden"><small>
-									<span class="glyphicon glyphicon-pencil"></span> Zapisz</small></button>						
+									<button id="phone-save" class="btn btn-default btn-xs hidden">
+									<small><span class="glyphicon glyphicon-pencil"></span> Zapisz</small></button>						
 								</td>
 							</tr>
 							<tr>
-								<td>Adres e-mail:</td>
+								<td>Adres&nbspemail:</td>
 								<td>
 									<span id="email-output">${user.email}</span>
 									<input id="email-input" class="hidden"></input>
 								</td>
-									<td><button id="email-button" class="btn btn-default btn-xs">
-									<small><span class="glyphicon glyphicon-pencil"></span> Edytuj</button></small>
-									<button id="email-save" class="btn btn-default btn-xs hidden"><small>
-									<span class="glyphicon glyphicon-pencil"></span> Zapisz</button></small>						
+								<td><button id="email-button" class="btn btn-default btn-xs">
+									<small><span class="glyphicon glyphicon-pencil"></span> Edytuj</small></button>
+									<button id="email-save" class="btn btn-default btn-xs hidden">
+									<small><span class="glyphicon glyphicon-pencil"></span> Zapisz</small></button>						
 								</td>
 							</tr>
 						</table>
-						<br/>
-						<p><b>TWOJE POJAZDY:</b></p>
-						<div id="no-cars" class='car-div-alert'>
-							<span class="glyphicon glyphicon-exclamation-sign"></span> Brak pojazdów w bazie.
-						</div>
-						<div id="cars"></div>
-			
-						<div class="text-center">
-							<button id="open-add-car" class="btn btn-primary"><span class="glyphicon glyphicon-plus">
-							</span> Dodaj pojazd</button>
-						</div>
-						
-						<div id="add-car-form" class="form-horizontal hidden carDiv">
-			
-							<div class="form-group">
-								<label for="inputBrand" class="col-sm-2 control-label">Marka:</label>
-								<div class="col-sm-9">
-									<input id="brand" type="text" class="form-control"
-										placeholder="marka" autofocus="true" id="inputBrand" />
-								</div>
-							</div>
-			
-							<div class="form-group">
-								<label for="inputModel" class="col-sm-2 control-label">Model:</label>
-								<div class="col-sm-9">
-									<input id="model" type="text" class="form-control"
-										placeholder="model" autofocus="true" id="inputModel" />
-								</div>
-							</div>
-			
-							<div class="form-group">
-								<label for="inputRegNr" class="col-sm-2 control-label">Nr&nbsprej.:</label>
-								<div class="col-sm-9">
-									<input id="registration_nr" type="text" class="form-control"
-										placeholder="numer rejestracyjny" autofocus="true"
-										id="inputRegNr" />
-								</div>
-							</div>
-							<div class="text-center">
-								<p id="car-input-alert" class="hidden" >Proszę uzupełnić wszystkie pola.</p>
-							</div>
-							<div class="text-center col-sm-6">
-								<div class="form-group">
-									<button id="add-car" class="btn btn-primary" type="submit">
-									<span class="glyphicon glyphicon-floppy-disk"></span> Zapisz pojazd</button>
-								</div>
-							</div>
-							<div class="text-center col-sm-6">
-								<div class="form-group">
-									<button id="close-add-car" class="btn btn-primary" type="submit">
-									<span class="glyphicon glyphicon-remove"></span> Zamknij</button>
-								</div>				
-							</div>
-						</div>
 					</div>
-					<div class="col-md-7">
-						<div class="row">
+					<div class="col-md-8">
 							<div class="col-sm-6 center-block">
-								<div type="text" id="datepicker"></div>
+								<p><b>DATA:</b></p>
+								<div id="datepicker"></div>
 							</div>
 							<div class="col-sm-6 center-block">
+								<p><b>GODZINA:</b></p>
 								<div class="dayPlan">
 									<div class="dayPlan-header">
-										<span id="dayOfWeek">Poniedziałek</span>
+										<span id="dayOfWeek"></span>
 									</div>
 									<div class="dayPlan-content">
 										<table id="dayPlan-table">
@@ -176,17 +124,68 @@
 								</div>
 							</div>
 						</div>
+					<div class="col-md-6 col-md-offset-1">
+						<p>
+							<b>TWOJE POJAZDY:</b>
+							<button id="open-add-car" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-plus">
+							</span> Dodaj pojazd</button>
+					        <div class="clearfix"></div>
+						</p>
+						<div id="cars"></div>
+						<div id='account-alert'>
+							<span class="glyphicon glyphicon-exclamation-sign"></span><span id="account-alert-text"></span>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>	
+	<!-- MODAL DODAJ POJAZD -->
+	<div class="modal fade" id="modalAddCar" tabindex="-1">
+    	<div class="modal-dialog">
+      		<div class="modal-content" id="divModal">
+        		<div class="modal-header">
+          			<button type="button" class="close" data-dismiss="modal">&times;</button>
+          			<h3 class="modal-title">Dodaj pojazd:</h3>
+        		</div>
+        		<div class="modal-body">
+					<div id="add-car-form" class="form-horizontal carDiv">
+						<div class="form-group">
+							<label for="inputBrand" class="col-sm-2 control-label">Marka:</label>
+							<div class="col-sm-9">
+								<input id="brand" type="text" class="form-control"
+								placeholder="marka" autofocus="true" id="inputBrand" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputModel" class="col-sm-2 control-label">Model:</label>
+							<div class="col-sm-9">
+								<input id="model" type="text" class="form-control"
+								placeholder="model" autofocus="true" id="inputModel" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputRegNr" class="col-sm-2 control-label">Nr&nbsprej.:</label>
+							<div class="col-sm-9">
+								<input id="registration_nr" type="text" class="form-control"
+								placeholder="numer rejestracyjny" autofocus="true" id="inputRegNr" />
+							</div>
+						</div>
+						<div class="text-center">
+							<p id="car-input-alert" class="hidden" >Proszę uzupełnić wszystkie pola.</p>
+						</div>
+					</div>
+        		</div>
+     			<div class="modal-footer">
+					<button id="add-car" class="btn btn-primary" type="submit">
+					<span class="glyphicon glyphicon-floppy-disk"></span> Zapisz pojazd</button>
+       			</div>
+  	    	</div>
+  	   </div>
+    </div>
 	<script src="${contextPath}/resources/js/jquery-3.2.0.min.js"></script>
 	<script src="${contextPath}/resources/js/jquery-ui.min.js"></script>
 	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 	<script src="${contextPath}/resources/js/account-scripts.js"></script>
-
-
-
 </body>
 </html>

@@ -392,6 +392,7 @@ label {
   font-weight: bold;
   color: #dcdcdc;
   text-align: center;
+  background-color: black;
 }
 .dayPlan-header {
   width: 227px;
@@ -420,12 +421,18 @@ label {
   margin-right: 3px;
   padding: 1px 3px 1px 3px;
 }
-.btn-dayPlan-selected,
 .btn-dayPlan:hover {
+  border: 1px solid #dc0000;
+  background: #dc0000;
+  cursor: pointer;
+}
+.btn-dayPlan-selected,
+.btn-dayPlan-selected:hover {
   border: 1px solid #dc0000;
   background: #ff0000;
   cursor: pointer;
 }
+
 .btn-dayPlan-disabled,
 .btn-dayPlan-disabled:focus,
 .btn-dayPlan-disabled:hover {

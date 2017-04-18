@@ -6,7 +6,7 @@ $(function () {
 	var $brand = $('#brand');
 	var $model = $('#model');
 	var $regNr = $('#registration_nr');
-	var $noCars = $('#no-cars')
+	var $accountAlert = $('#account-alert')
 	var $datepicker = $('#datepicker')
 	var numberOfCars =0;
 	var daysTable = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
@@ -15,7 +15,7 @@ $(function () {
 
 
 	getVisitsByDay();
-	
+
 	$.ajax({
 		type : 'GET',
 		url: '/api/cars',
@@ -28,7 +28,7 @@ $(function () {
 			checkNumberOfCars();		
 		},
 	});
-	
+
 	$('#add-car').on('click',function(){
 		if ($brand.val().length > 0 && $model.val().length > 0 && $regNr.val().length > 0) {
 			$.ajax({
@@ -44,6 +44,7 @@ $(function () {
 					addCarToList(newCar);
 					numberOfCars += 1;
 					checkNumberOfCars();		
+					$('#modalAddCar').modal('hide');
 				},
 				error: function(){
 					alert('Nie udało się dodać pojazdu do bazy.');
@@ -58,16 +59,16 @@ $(function () {
 		}
 	});
 
-	
+
 	$cars.delegate('.removeCar','click', function() {	
 		var $parentDiv = $(this).closest('div').parent('div');
 		$.ajax({
 			type: 'DELETE',
 			url: 'api/cars/'+ $(this).attr('data-id'),
-		    headers:
-		    {
-		        'X-CSRF-Token': $csrf.attr('content')
-		    },
+			headers:
+			{
+				'X-CSRF-Token': $csrf.attr('content')
+			},
 			success: function() {
 				$parentDiv.remove();
 				numberOfCars -= 1;
@@ -80,19 +81,8 @@ $(function () {
 		});
 	});
 
-	
-	$('#open-add-car').on('click',function(){
-		$('#add-car-form').removeClass('hidden');
-		$('#open-add-car').addClass('hidden');
-	});
 
-	
-	$('#close-add-car').on('click',function(){
-		$('#open-add-car').removeClass('hidden');
-		$('#add-car-form').addClass('hidden');		
-	});
 
-	
 	$('#phone-button').on('click',function(){
 		$('#phone-button').addClass('hidden');
 		$('#phone-output').addClass('hidden');
@@ -100,7 +90,7 @@ $(function () {
 		$('#phone-save').removeClass('hidden');
 		$('#phone-input').val($('#phone-output').text())	
 	});
-	
+
 
 	$('#email-button').on('click',function(){
 		$('#email-button').addClass('hidden');
@@ -111,7 +101,7 @@ $(function () {
 	});
 
 	$('#phone-save').on('click',function(){
-		
+
 		$('#phone-button').removeClass('hidden');
 		$('#phone-output').removeClass('hidden');
 		$('#phone-input').addClass('hidden');
@@ -133,9 +123,9 @@ $(function () {
 		});	
 	});
 
-	
+
 	$('#email-save').on('click',function(){
-		
+
 		$('#email-button').removeClass('hidden');
 		$('#email-output').removeClass('hidden');
 		$('#email-input').addClass('hidden');
@@ -156,14 +146,13 @@ $(function () {
 			}
 		});	
 	});
-	
+
 
 	$cars.delegate('.add-visit','click', function() {	
 		var carId = $(this).attr('data-id');
 		var date = selectedDate.getFullYear() + '-' + selectedDate.getMonth() + '-' + selectedDate.getDate();
 		var time = $('.btn-dayPlan-selected').attr('date-time');
 		if (time != null){
-			console.log()
 			$.ajax({
 				type: 'POST',
 				url: 'api/visits',
@@ -183,20 +172,21 @@ $(function () {
 				}
 			});				
 		}else {
-			console.log('Nie wybrano godziny');
+			$accountAlert.removeClass('hidden');
+			$('#account-alert-text').text(' Proszę wskazać datę i godzinę wizyty.');
 		}
 	});
 
-	
+
 	$cars.delegate('.remove-visit','click', function() {	
 		var $closestDiv = $(this).closest('div');
 		$.ajax({
 			type: 'DELETE',
 			url: 'api/visits/'+ $(this).attr('data-id'),
-		    headers:
-		    {
-		        'X-CSRF-Token': $csrf.attr('content')
-		    },
+			headers:
+			{
+				'X-CSRF-Token': $csrf.attr('content')
+			},
 			success: function() {
 				$closestDiv.remove();
 				getVisitsByDay();
@@ -206,7 +196,7 @@ $(function () {
 			}
 		});	
 	});
-	
+
 
 	$.datepicker.regional['pl'] = {
 			closeText: 'Zamknij',
@@ -229,17 +219,25 @@ $(function () {
 			$('.btn-dayPlan-selected').removeClass('btn-dayPlan-selected');
 			$('.btn-dayPlan-reserved').removeClass('btn-dayPlan-reserved');
 			getVisitsByDay();
-			console.log(selectedDate);
 		},
 	});
 
 	$('.btn-dayPlan').on('click', function () {
-		console.log('test');
 		if ($(this).hasClass('btn-dayPlan-disabled') === false) {
 			$('.btn-dayPlan').removeClass('btn-dayPlan-selected');
 			$(this).addClass('btn-dayPlan-selected');
+			$accountAlert.addClass('hidden');
 		}
 	});
+
+	$('#open-add-car').on('click', function () {
+		setBlur();
+		$carInputAlert.addClass('hidden')
+		$('#modalAddCar').modal({ 'backdrop': 'static' });
+	});
+
+	$('#modalAddCar').on('hidden.bs.modal', removeBlur);
+
 
 	function getVisitsByDay() {
 		var request = '?day=' + selectedDate.getDate() + '&month=' + selectedDate.getMonth() + '&year=' + selectedDate.getFullYear();
@@ -261,16 +259,17 @@ $(function () {
 		});
 	}
 
-	
+
 	function checkNumberOfCars(){
 		if (numberOfCars == 0){
-			$noCars.removeClass('hidden');
+			$accountAlert.removeClass('hidden');
+			$('#account-alert-text').text(' Brak zapisanych pojazdów, dodaj pojazd do bazy.');
 		} else {
-			$noCars.addClass('hidden');
+			$accountAlert.addClass('hidden');
 		}
 	}
 
-		
+
 	function getVisitsByCar(car){
 		$.ajax({
 			type : 'GET',
@@ -285,34 +284,45 @@ $(function () {
 			}
 		});		
 	};
-		
+
 
 	function addVisitToList(visit){
 		var time = visit.time.slice(0,2) + ":" + visit.time.slice(2);
 		var date = visit.date.split('-');
 		var dateString = date[2]+' '+monthsTable[date[1]] +' '+date[0];
-		
+
 		var visitHtml = (
 				"<div class='visit-div'>Data: " + dateString +  "<tab2em/> Godzina: " + time + 
 				"<button type='button' class='btn btn-xs btn-default pull-right remove-visit' data-id='"+ visit.id +"'>" +
 				"<span class='glyphicon glyphicon-remove' aria-hidden='true'></span> Odwołaj" +
-				"</button></div>"
+				"</button><div class='clearfix'></div></div>"
 		); 
 		return visitHtml;
 	}
-	
-	
+
+
 	function addCarToList(car){
 		$cars.append(
 				"<div><div class='car-div'>"+ car.brand +" "+ car.model +"<tab4em/> nr rej.: "+ car.registration_nr +
 				"<button type='button' class='btn btn-default pull-right removeCar' data-id='"+ car.id +"'>" +
 				"<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>" +
-				"</button></div><div class='visits-list-div'>" +
+				"</button><div class='clearfix'></div></div><div class='visits-list-div'>" +
 				"<div id='visits-"+ car.id +"'></div><div class='text-center'>" +
-				"<button class='btn btn-default btn-sm add-visit' data-id='"+car.id +"'>" +
-				"<span class='glyphicon glyphicon-plus'></span> Dodaj wizytę</div></div></div>");		
+				"<button class='btn btn-default add-visit' data-id='"+car.id +"'>" +
+				"<span class='glyphicon glyphicon-plus'></span> Dodaj wizytę</div></div></div>"
+				);		
 	}
 	
+	function setBlur() {
+		$('.background-image').addClass('blur2px');
+		$('.content').addClass('blur2px');
+	}
+
+	function removeBlur() {
+		$('.background-image').removeClass('blur2px');
+		$('.content').removeClass('blur2px');
+	}
+
 });
 
 

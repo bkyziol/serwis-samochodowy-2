@@ -78,7 +78,7 @@
     <div class="container-fluid timetable-container" >
       <div id="divTimetable" class="col-lg-offset-1 col-sm-offset-1 col-sm-6 col-lg-4 timetable-item">
         <h3 class="text-center">Umów się na wymianę&nbsp;opon:</h3>
-        <p class="text-center"><span class="btn btn-timetable" data-highlight="divTerminarz">Terminarz</span></p>
+        <p class="text-center"><span class="btn btn-timetable" data-highlight="divTerminarz"><span class="glyphicon glyphicon-calendar"></span> Terminarz</span></p>
       </div>
     </div>
     <!--USŁUGI-->
