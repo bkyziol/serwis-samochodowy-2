@@ -35,7 +35,7 @@
 			<a href="/terminarz" class="btn btn-default btn-sm pull-right"><span class="glyphicon glyphicon-remove"></span></a>
 			<h2 class="form-signin-heading">Rejestracja:</h2><br />
 
-			<form:form method="POST" modelAttribute="userForm" action="${contextPath}/rejestracja"
+			<form:form id="registration-form" method="POST" modelAttribute="userForm" action="${contextPath}/rejestracja"
 				class="form-horizontal">
 
 				<spring:bind path="login">
