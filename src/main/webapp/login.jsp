@@ -69,6 +69,7 @@
 							<a href="${contextPath}/rejestracja">Utwórz konto</a>
 						</div>
 					</form>
+					<p class="text-center" style="color: grey"><small>Jeżeli nie chcesz się rejestrować to na potrzeby wersji demontracyjnej możesz użyć login: test hasło: test</small></small></p>
 				</div>
 			</div>
 		</div>

@@ -227,6 +227,7 @@ $(function () {
 			$('.btn-dayPlan').removeClass('btn-dayPlan-selected');
 			$(this).addClass('btn-dayPlan-selected');
 			$accountAlert.addClass('hidden');
+			checkNumberOfCars();
 		}
 	});
 
