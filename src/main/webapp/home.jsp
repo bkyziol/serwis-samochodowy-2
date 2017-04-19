@@ -41,7 +41,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <span class="navbar-brand">NAZWAFIRMY</span>
+          <span class="navbar-brand">NAZWAFIRMYTEST</span>
         </div>
         <div class="collapse navbar-collapse" id="navHeaderCollapse">
           <ul class="nav navbar-nav navbar-right">
